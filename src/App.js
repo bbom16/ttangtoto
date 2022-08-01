@@ -1,24 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import "./App.css";
+import BottomBar from "./components/BottomBar";
+import Detail from "./routes/Detail";
+import Home from "./routes/Home";
+import Login from "./routes/Login";
+import MyPage from "./routes/MyPage";
+import Rank from "./routes/Rank";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router basename={process.env.PUBLIC_URL}>
+      <Routes>
+        <Route path="/" element={<BottomBar />}>
+          <Route index element={<Home />} />
+          <Route path="/detail/:id" element={<Detail />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/mypage" element={<MyPage />} />
+          <Route path="/rank" element={<Rank />} />
+        </Route>
+        <Route path="*" element={<div>There's nothing here!</div>} />
+      </Routes>
+    </Router>
   );
 }
 
