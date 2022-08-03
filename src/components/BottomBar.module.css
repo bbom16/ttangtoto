@@ -1,4 +1,5 @@
-.wrapper {
+.wrapper,
+.login {
   overflow: hidden;
   position: relative;
   top: 750px;
@@ -6,5 +7,10 @@
 .wrapper div {
   text-align: center;
   width: 33%;
+  float: left;
+}
+.login div {
+  text-align: center;
+  width: 25%;
   float: left;
 }

@@ -1,26 +1,12 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { KAKAO_AUTH_URL } from "../components/OAuth";
 
 function Login() {
-  const [user, setUser] = useState("");
-  const handleInput = (e) => setUser(e.target.value);
-  let navigate = useNavigate(); //react hook 규칙으로 이렇게 사용
-  const clickBtn = (e) => {
-    e.preventDefault();
-    if (user === "") {
-      return;
-    }
-    localStorage.setItem("user", user);
-    setUser("");
-    navigate("/"); //리다이렉트
+  const onClick = () => {
+    window.location.href = KAKAO_AUTH_URL;
   };
-
   return (
     <div>
-      <form>
-        <input onChange={handleInput} value={user} type="text" />
-        <button onClick={clickBtn}>로그인</button>
-      </form>
+      <button onClick={onClick}>카카오로 로그인하기</button>
     </div>
   );
 }

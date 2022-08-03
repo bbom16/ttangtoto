@@ -5,35 +5,39 @@ import styles from "./BottomBar.module.css";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function BottomBar() {
-  const [login, setLogin] = useState(false);
-  const [user, setUser] = useState("");
+  const LOCAL_VALUE = "token";
+  const [user, setUser] = useState(() => localStorage.getItem(LOCAL_VALUE));
+
+  const logOut = () => {
+    localStorage.removeItem(LOCAL_VALUE);
+    window.location.replace("/ttangtoto");
+  };
+
   useEffect(() => {
-    let userName = localStorage.getItem("user");
-    if (userName === null) {
-      console.log("로그인해!");
-    } else {
-      setUser(userName);
-      setLogin(true);
-      console.log(`Hi, ${user}`);
-    }
-  }, []);
+    setUser(localStorage.getItem(LOCAL_VALUE));
+  }, [user]);
 
   return (
     <div>
-      <nav className={styles.wrapper}>
+      <nav className={user ? styles.login : styles.wrapper}>
         <Link to="/">
           <div>홈</div>
         </Link>
         <Link to="/rank">
           <div>랭킹</div>
         </Link>
-        {!login ? (
+        {user ? (
+          <section>
+            <Link to="/mypage">
+              <div>마이페이지</div>
+            </Link>
+            <Link to="#" onClick={logOut}>
+              <div>로그아웃</div>
+            </Link>
+          </section>
+        ) : (
           <Link to="/login">
             <div>로그인</div>
-          </Link>
-        ) : (
-          <Link to="/mypage">
-            <div>마이페이지</div>
           </Link>
         )}
       </nav>
