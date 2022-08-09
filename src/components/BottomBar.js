@@ -1,8 +1,14 @@
 import { useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import styles from "./BottomBar.module.css";
-// import "../FontAwesome";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faHome,
+  faMedal,
+  faSignIn,
+  faSignOut,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
 
 function BottomBar() {
   const LOCAL_VALUE = "token";
@@ -18,26 +24,26 @@ function BottomBar() {
   }, [user]);
 
   return (
-    <div>
+    <div className={styles.bottomBar}>
       <nav className={user ? styles.login : styles.wrapper}>
         <Link to="/">
-          <div>홈</div>
+          <FontAwesomeIcon icon={faHome} size="lg" />
         </Link>
         <Link to="/rank">
-          <div>랭킹</div>
+          <FontAwesomeIcon icon={faMedal} size="lg" />
         </Link>
         {user ? (
           <section>
             <Link to="/mypage">
-              <div>마이페이지</div>
+              <FontAwesomeIcon icon={faUser} size="lg" />
             </Link>
             <Link to="#" onClick={logOut}>
-              <div>로그아웃</div>
+              <FontAwesomeIcon icon={faSignOut} size="lg" />
             </Link>
           </section>
         ) : (
           <Link to="/login">
-            <div>로그인</div>
+            <FontAwesomeIcon icon={faSignIn} size="lg" />
           </Link>
         )}
       </nav>

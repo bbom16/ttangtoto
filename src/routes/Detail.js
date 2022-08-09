@@ -1,15 +1,16 @@
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import styles from "./Detail.module.css";
 
 function Detail() {
-  const { id } = useParams();
+  let { id } = useParams();
   const [loading, setLoadig] = useState(true);
   const [sport, setSport] = useState([]);
   const getSport = async () => {
-    const json = await (
-      await fetch(`https://yts.mx/api/v2/movie_details.json?movie_id=${id}`)
-    ).json();
-    setSport(json.data.movie);
+    const json = await (await fetch(`/api/v1/matches/${id}`)).json();
+    setSport(json);
     setLoadig(false);
   };
 
@@ -17,14 +18,19 @@ function Detail() {
     getSport();
   }, []);
   return (
-    <div>
+    <div className={styles.container}>
       {loading ? (
-        <div>Loading...</div>
+        <div className={styles.loader}>
+          <FontAwesomeIcon icon={faSpinner} spin size="3x" />
+        </div>
       ) : (
         <div>
-          <h2>{sport.title}</h2>
-          <span>평점 : {sport.rating}</span>
-          <span>상영시간 : {sport.runtime}</span>
+          <h2>{sport.name}</h2>
+          <span>날짜 : {sport.date}</span>
+          <br />
+          <span>
+            {sport.homeTeam} vs {sport.awayTeam}
+          </span>
         </div>
       )}
     </div>

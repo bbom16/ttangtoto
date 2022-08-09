@@ -1,0 +1,10 @@
+.sports {
+  list-style: none;
+  padding: 3%;
+}
+
+.sports li {
+  border: 1px solid;
+  padding: 10px;
+  margin-bottom: 1%;
+}

@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
 import Sports from "../components/Sports";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import styles from "./Home.module.css";
+import sportsStyles from "../components/Sports.module.css";
 
 function Home() {
   const [loading, setLoadig] = useState(true);
   const [sports, setSports] = useState([]);
   const getSports = async () => {
-    const json = await (
-      await fetch(
-        `https://yts.mx/api/v2/list_movies.json?minimum_rating=8.8&sort_by=year&limit=10`
-      )
-    ).json();
-    setSports(json.data.movies);
+    const json = await (await fetch(`/api/v1/matches`)).json();
+    setSports(json.matches);
     setLoadig(false);
   };
   useEffect(() => {
@@ -18,16 +18,19 @@ function Home() {
   }, []);
 
   return (
-    <article>
+    <article className={styles.container}>
       {loading ? (
-        <div>
-          <span>Loading...</span>
+        <div className={styles.loader}>
+          <FontAwesomeIcon icon={faSpinner} spin size="3x" />
         </div>
       ) : (
         <div>
-          {sports.map((sport) => (
-            <Sports key={sport.id} id={sport.id} title={sport.title} />
-          ))}
+          <h1 className={styles.title}>경기일정</h1>
+          <ul className={sportsStyles.sports}>
+            {sports.map((sport) => (
+              <Sports key={sport.id} id={sport.id} name={sport.name} />
+            ))}
+          </ul>
         </div>
       )}
     </article>

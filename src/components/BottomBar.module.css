@@ -2,15 +2,18 @@
 .login {
   overflow: hidden;
   position: relative;
-  top: 750px;
+  top: 93%;
 }
-.wrapper div {
+.wrapper svg {
   text-align: center;
   width: 33%;
   float: left;
 }
-.login div {
+.login svg {
   text-align: center;
   width: 25%;
   float: left;
+}
+.bottomBar {
+  height: 100%;
 }
